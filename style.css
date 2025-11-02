@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --primary: #5a67d8; /* Indigo-500 */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: none; 
+}
+ 
+@media (max-width: 768px) {
+    body {
+        cursor: default;
+    }
+}
+
+.dark body {
+    background-color: #1a202c;
+    color: #e2e8f0;
+}
+
+.product-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom Cursor Logic */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--primary); 
+    mix-blend-mode: difference; 
+    pointer-events: none; 
+    z-index: 9999;
+    transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+    display: none; 
+}
+
+/* Using the body class as a fallback for the cursor transition */
+.cursor-hover-active .custom-cursor {
+    width: 40px;
+    height: 40px;
+    opacity: 0.8;
+    background-color: white;
+}
+ 
+@media (min-width: 769px) {
+    .custom-cursor {
+        display: block; 
+    }
+}
+ 
+.cart-item-enter-active, .cart-item-leave-active {
+    transition: all 0.3s ease;
+}
+.cart-item-enter-from, .cart-item-leave-to {
+    opacity: 0;
+    transform: translateX(20px);
+}
+/* Custom scrollbar for cart */
+#cart-items-container::-webkit-scrollbar {
+    width: 8px;
+}
+#cart-items-container::-webkit-scrollbar-thumb {
+    background-color: #a0aec0;
+    border-radius: 4px;
+}
+#cart-items-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.dark #cart-items-container::-webkit-scrollbar-thumb {
+    background-color: #4a5568;
+}
+
+/* Custom Triangle Loader CSS */
+.triangle-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    position: relative;
+}
+
+.triangle-loader > div {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    animation: triangle-move 1.5s infinite ease-in-out;
+    border-bottom-width: 15px;
+    transform-origin: 50% 50%;
+}
+
+.triangle-loader .t1 { 
+    border-bottom-color: var(--primary);
+    top: 0;
+    animation-delay: 0s;
+}
+.triangle-loader .t2 { 
+    border-bottom-color: var(--primary); 
+    transform: rotate(-60deg);
+    left: 5px;
+    top: 30px;
+    animation-delay: -0.5s;
+}
+.triangle-loader .t3 { 
+    border-bottom-color: var(--primary); 
+    transform: rotate(60deg);
+    right: 5px;
+    top: 30px;
+    animation-delay: -1s;
+}
+ 
+.dark .triangle-loader .t1, 
+.dark .triangle-loader .t2, 
+.dark .triangle-loader .t3 {
+    border-bottom-color: '#9f7aea';
+}
+
+@keyframes triangle-move {
+    0%, 100% {
+        transform: translateY(0) rotate(0);
+        opacity: 0.8;
+    }
+    33% {
+        transform: translateY(-10px) rotate(120deg);
+        opacity: 1;
+    }
+    66% {
+        transform: translateY(0) rotate(240deg);
+        opacity: 0.8;
+    }
+}
+ 
+/* Carousel specific styles */
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.carousel-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    position: relative;
+    transition: opacity 0.7s ease-in-out;
+    opacity: 0;
+    z-index: 0;
+}
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 10;
+}
+.offer-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+ 
+/* Styles for text visibility on the carousel */
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 1.8s;
+}
+ 
+.slide-content {
+    position: relative;
+    z-index: 20; 
+    text-align: center;
+    padding: 1rem;
+    max-width: 90%;
+    margin: 0 auto;
+}
+.slide-content h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+.slide-content li {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+.slide-content li::before {
+    content: '•';
+    color: #ffcc00;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    font-size: 1.2em;
+}
+
+/* Responsive overrides for text size */
+@media (min-width: 640px) {
+    .slide-content h2 {
+        font-size: 2.5rem;
+    }
+    .slide-content li {
+        font-size: 1.125rem;
+    }
+}
+ 
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5; 
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Fixed Social Sidebar Styles (Moved to Right) */
+.social-sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 30;
+    display: none; 
+}
+@media (min-width: 768px) {
+    .social-sidebar {
+        display: block; 
+    }
+}
+.social-sidebar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem; 
+    margin-bottom: 1px; 
+    background-color: #2d3748;
+    color: white;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-top-right-radius: 0; 
+    border-bottom-right-radius: 0; 
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, background-color 0.3s;
+}
+.social-sidebar a:hover {
+    transform: translateX(-5px);
+    background-color: var(--primary);
+}
+.social-sidebar i {
+    width: 2rem;
+    height: 2rem;
+}
+ 
+/* Fixed Store Actions Sidebar (Right) - Removed as per request */
+#store-actions-sidebar {
+    display: none !important;
+}
+ 
+/* About Section Styles */
+.about-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+.dark .about-card {
+    background-color: #2d3748;
+    box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.05);
+}
+ 
+/* Mobile Menu Drawer Styles */
+#mobile-menu-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 75%; 
+    max-width: 300px;
+    height: 100%;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+#mobile-menu-drawer.open {
+    transform: translateX(0);
+}
+#mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 49;
+    transition: opacity 0.3s;
+}
